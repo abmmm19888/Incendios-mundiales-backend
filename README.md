@@ -1,4 +1,4 @@
-# Blog's Backend
+# Backend
 
 ## Installation
 
@@ -14,7 +14,22 @@ Required Python packages are installed inside the project's virtual environment.
 
 ## Configuration
 
-Database docker container definition is located at `docker-compose.yaml`:
+Configuration values are located at `.env`:
+
+	DB_USER=
+	DB_PASSWORD=
+	DB_NAME=
+	DB_PORT=5432
+	DB_HOST=localhost
+	JWT_SECRET_KEY=
+	JWT_ALGORITHM=HS256
+	JWT_EXPIRE_TIME=60
+
+`JWT_SECRET_KEY` can be generated with OpenSSL:
+
+	openssl rand -hex 32
+
+Database docker container definition, which reads configuration values in `.env`, is located at `docker-compose.yaml`:
 
 	services:
 	  db:
@@ -27,18 +42,6 @@ Database docker container definition is located at `docker-compose.yaml`:
 		  - "${DB_PORT}:${DB_PORT}"
 		env_file:
 		  - .env
-
-Configuration values are located at `.env`:
-
-	DB_USER=
-	DB_PASSWORD=
-	DB_NAME=
-	DB_PORT=
-	DB_HOST=
-
-`JWT_SECRET_KEY` can be generated with OpenSSL:
-
-	openssl rand -hex 32
 
 Virtual environment files, configuration values and cached files should be added to `.gitignore` so they are not tracked:
 
