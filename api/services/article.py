@@ -1,4 +1,4 @@
-#!/user/bin/env python3
+#!/usr/bin/env python3
 
 from sqlalchemy.orm import Session
 from core.models import Article, User

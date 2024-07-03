@@ -1,4 +1,4 @@
-#!/user/bin/env python3
+#!/usr/bin/env python3
 
 from core.configuration import SQL_DATABASE_URL
 from sqlalchemy import create_engine

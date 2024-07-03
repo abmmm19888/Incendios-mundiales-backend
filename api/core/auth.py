@@ -1,4 +1,4 @@
-#!/user/bin/env python3
+#!/usr/bin/env python3
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer

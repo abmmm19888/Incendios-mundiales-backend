@@ -1,4 +1,4 @@
-#!/user/bin/env python3
+#!/usr/bin/env python3
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session

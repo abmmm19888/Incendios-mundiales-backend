@@ -1,4 +1,4 @@
-#!/user/bin/env python3
+#!/usr/bin/env python3
 
 from core.database import engine
 from sqlalchemy import Uuid, Column, Integer, String, Text, DateTime, ForeignKey, UniqueConstraint
