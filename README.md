@@ -1,63 +1,26 @@
 # Backend
 
-## Installation
+## Installation and execution
 
-Python virtual environment installation and configuration.
+Install Docker and use `docker-compose` to create database and API containers (you can open two tabs):
 
-	sudo apt install python3.10-venv
-	python3 -m venv venv
+	docker-compose up db
+	docker-compose up api
 
-Required Python packages are installed inside the project's virtual environment.
+## Structure documentation
 
-	source venv/bin/activate
-	pip3 install fastapi sqlalchemy psycopg2-binary uvicorn[standard] python-dotenv python-jose[cryptography] passlib[bcrypt]
+Users interact with the frontend website and call this API, which uses a PostgreSQL database to store data. API and DB are isolated using Docker containers, which are like lightweight virtual machines.
 
-## Configuration
-
-Configuration values are located at `.env`:
-
-	DB_USER=
-	DB_PASSWORD=
-	DB_NAME=
-	DB_PORT=5432
-	DB_HOST=localhost
-	JWT_SECRET_KEY=
-	JWT_ALGORITHM=HS256
-	JWT_EXPIRE_TIME=60
+Configuration variables used by `docker-compose` are in `.env`. If any configuration variable is changed, all affected containers should be ran again.
 
 `JWT_SECRET_KEY` can be generated with OpenSSL:
 
 	openssl rand -hex 32
 
-Database docker container definition, which reads configuration values in `.env`, is located at `docker-compose.yaml`:
+`Dockerfile` contains the commands needed in order to create API Docker images. Python packages required by the API are listed in `requirements.txt`.
 
-	services:
-	  db:
-		image: postgres
-		environment:
-		  POSTGRES_USER: ${DB_USER}
-		  POSTGRES_PASSWORD: ${DB_PASSWORD}
-		  POSTGRES_DB: ${DB_NAME}
-		ports:
-		  - "${DB_PORT}:${DB_PORT}"
-		env_file:
-		  - .env
-
-Virtual environment files, configuration values and cached files should be added to `.gitignore` so they are not tracked:
+Configuration variables and cached files should be added to `.gitignore` so they are not tracked:
 
 	.env
-	venv/
 	__pycache__/
-
-## Structure
-
-`main.py` imports API routers from `routers/`, which call services (CRUD functions) from `services/` that use models from `core/models.py`. Database session creation is defined at `core/database.py` and sessions are created in routers and passed to services.
-
-## Execution
-
-Database is started and `main.py` is executed inside the virtual environment so `app` FastAPI object defined there can be used to serve requests.
-
-	docker-compose up
-	source venv/bin/activate
-	uvicorn main:app --reload --port 8000
 
