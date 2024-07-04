@@ -15,6 +15,8 @@ You can update fire data by running:
 
 	docker exec -it $CONTAINER_ID /venv/bin/python3 update-fires.py
 
+You can use the API directly throught the browser by going to `http://API_HOST:API_PORT/docs`.
+
 ## Structure documentation
 
 Users interact with the frontend website and call this API, which uses a PostgreSQL database to store data. API and DB are isolated using Docker containers, which are like lightweight virtual machines.
