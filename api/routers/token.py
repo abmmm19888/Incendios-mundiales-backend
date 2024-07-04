@@ -10,7 +10,7 @@ from services.user import UserService
 
 router = APIRouter()
 
-@router.post("/token")
+@router.post("/token", tags = ['token'])
 async def create_token(data: OAuth2PasswordRequestForm = Depends(OAuth2PasswordRequestForm), session: Session = Depends(get_session)):
 	user = UserService.read_user_by_credentials(data.username, data.password, session)
 	

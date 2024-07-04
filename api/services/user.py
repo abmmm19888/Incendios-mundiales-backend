@@ -13,8 +13,7 @@ class UserService:
 	def create_user(data: UserCreationData, session: Session):
 		user = User(
 			username = data.username,
-			hashed_password = hash_password(data.password),
-			email = data.email)
+			hashed_password = hash_password(data.password))
 		
 		session.add(user)
 
@@ -66,4 +65,3 @@ class UserService:
 	@staticmethod
 	def delete_user(session: Session):
 		...
-

@@ -7,6 +7,14 @@ Install Docker and use `docker-compose` to create database and API containers (y
 	docker-compose up db
 	docker-compose up api
 
+You can list running containers by running:
+
+	docker ps
+
+You can update fire data by running:
+
+	docker exec -it $CONTAINER_ID /venv/bin/python3 update-fires.py
+
 ## Structure documentation
 
 Users interact with the frontend website and call this API, which uses a PostgreSQL database to store data. API and DB are isolated using Docker containers, which are like lightweight virtual machines.

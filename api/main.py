@@ -1,11 +1,18 @@
 #!/usr/bin/env python3
 
+from os import getenv
+
+FRONTEND_HOST = getenv('FRONTEND_HOST')
+FRONTEND_PORT = getenv('FRONTEND_PORT')
+
+if FRONTEND_HOST == None or FRONTEND_PORT == None:
+    raise Exception("Frontend configuration not found")
+
 import core.models
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from core.configuration import FRONTEND_HOST, FRONTEND_PORT
-from routers import token, user, article
+from routers import token, user, fire
 
 app = FastAPI()
 
@@ -20,4 +27,4 @@ app.add_middleware(
 
 app.include_router(token.router)
 app.include_router(user.router)
-app.include_router(article.router)
+app.include_router(fire.router)

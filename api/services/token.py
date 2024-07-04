@@ -1,8 +1,17 @@
 #!/usr/bin/env python3
+from os import getenv
+
+JWT_SECRET_KEY = getenv('JWT_SECRET_KEY')
+JWT_EXPIRE_TIME = getenv('JWT_EXPIRE_TIME')
+JWT_ALGORITHM = getenv('JWT_ALGORITHM')
+
+if JWT_SECRET_KEY == None or JWT_EXPIRE_TIME == None or JWT_ALGORITHM == None:
+    raise Exception("Authentication configuration not found")
+
+JWT_EXPIRE_TIME = int(JWT_EXPIRE_TIME)
 
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta, timezone
-from core.configuration import JWT_SECRET_KEY, JWT_EXPIRE_TIME, JWT_ALGORITHM
 from jose import jwt
 from schemas.token import Token
 
