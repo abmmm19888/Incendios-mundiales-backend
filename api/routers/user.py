@@ -14,6 +14,6 @@ async def create_user(data: UserCreationData, session: Session = Depends(get_ses
 	user = UserService.create_user(data, session)
 	return {'unavailableUsername': user is None, 'user': user}
 
-@router.get("/authenticated-user", tags = ['fire'])
+@router.get("/authenticated-user", tags = ['user'])
 async def read_authenticated_user(user = Depends(get_user), session: Session = Depends(get_session)):
 	return {'user': user}
