@@ -1,6 +1,6 @@
 # Backend
 
-## Installation and execution
+## Installation and execution (Linux)
 
 Install Docker and use `docker-compose` to create database and API containers (you can open two tabs):
 
