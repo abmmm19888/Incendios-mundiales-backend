@@ -4,9 +4,6 @@ from urllib.request import urlopen
 from datetime import date
 import csv
 
-BASE_URL = "https://firms.modaps.eosdis.nasa.gov"
-MAP_KEY = "578c2b66d72914caba3c666be9d942be"
-
 class Fire:
 	def __init__(self, latitude, longitude, brightness, scan, track,
 			acq_date, acq_time, satellite, instrument, confidence,
@@ -27,6 +24,8 @@ class Fire:
 		self.daynight = str(daynight)
 
 class API:
+	url = "https://firms.modaps.eosdis.nasa.gov"
+
 	sources = [
 		"LANDSAT_NRT",      # [US/Canada only] (LANDSAT Near Real-Time, Real-Time and Ultra Real-Time *)
 		"MODIS_NRT",        # (MODIS Near Real-Time, Real-Time and Ultra Real-Time *)
@@ -55,12 +54,15 @@ class API:
 		"TZA", "UGA", "UKR", "UMI", "URY", "USA", "UZB", "VAT", "VCT", "VEN", "VGB", "VIR", "VNM", "VUT", "WLF", "WSM",
 		"YEM", "ZAF", "ZMB", "ZWE"]
 
-	def get_today_world_fires_by_source(source):
-		response = urlopen(f"{BASE_URL}/api/area/csv/{MAP_KEY}/{source}/world/1")
+	def __init__(self, key):
+		self.key = key
+
+	def get_today_world_fires_by_source(self, source):
+		response = urlopen(f"{self.url}/api/area/csv/{self.key}/{source}/world/1")
 		lines = (line.decode('utf-8') for i, line in enumerate(response) if i > 0)
 		return (Fire(* values) for values in csv.reader(lines))
 	
-	def get_today_fires_by_source_and_country(source, country):
-		response = urlopen(f"{BASE_URL}/api/country/csv/{MAP_KEY}/{source}/{country}/1")
+	def get_today_fires_by_source_and_country(self, source, country):
+		response = urlopen(f"{self.url}/api/country/csv/{self.key}/{source}/{country}/1")
 		lines = (line.decode('utf-8') for i, line in enumerate(response) if i > 0)
 		return (Fire(* values) for country, * values in csv.reader(lines))
